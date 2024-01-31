@@ -1,0 +1,63 @@
+# Almacenamiento en Docker
+
+[TOC]
+
+**Los contenedores son efímeros**, es decir, los ficheros, datos y configuraciones que creamos en los contenedores sobreviven a las paradas de los mismos pero, sin embargo, son destruidos si el contenedor es destruido.
+
+Ante la situación anteriormente descrita Docker nos proporciona varias soluciones para persistir los datos de los contenedores:
+
+- Los **volúmenes docker**
+
+- Los **bind mount**
+
+  
+
+  ### Redes
+
+Aunque hasta ahora no lo hemos tenido en cuenta, cada vez que creamos un contenedor, esté se conecta a una red virtual y docker hace una configuración del sistema (usando interfaces puente e iptables) para que la máquina tenga una ip interna, tenga acceso al exterior, podamos mapear (DNAT) puertos,…)
+
+Cuando instalamos docker tenemos las siguientes redes predefinidas:
+
+- Red de tipo bridge
+- Red de tipo host
+- Red de tipo none
+
+
+
+## Volúmenes docker y bind mount
+
+### Los contenedores son efímeros
+
+**Los contenedores son efímeros**, es decir, los ficheros, datos y configuraciones que creamos en
+los contenedores sobreviven a las paradas de los mismos pero, sin embargo, son destruidos si el
+contenedor es destruido.
+
+Veamos un ejemplo:
+
+```bash
+$ docker run -d --name my-apache-app -p 8080:80 httpd:2.4
+ac50cc24ef71ae0263be7794278600d5cc4f085b88cebbf97b7b268212f2a82f
+$ docker exec my-apache-app bash -c 'echo "<h1>Hola</h1>" >
+/usr/local/apache2/htdocs/index.html'
+$ curl http://localhost:8080
+<h1>Hola</h1>
+$ docker rm -f my-apache-app
+my-apache-app
+$ docker run -d --name my-apache-app -p 8080:80 httpd:2.4
+bb94716205c780ec4a3a2695722fb35ac616ae4cea573308d9446208afb164dc
+$ curl http://localhost:8080
+<html><body><h1>It works!</h1></body></html>
+```
+
+<img src="./practica_almacenamiento_docker.assets/image-20240126101005274.png" alt="image-20240126101005274"  />
+
+![image-20240126101417869](./practica_almacenamiento_docker.assets/image-20240126101417869.png)
+
+![image-20240126101743720](./practica_almacenamiento_docker.assets/image-20240126101743720.png)
+
+![image-20240126101815655](./practica_almacenamiento_docker.assets/image-20240126101815655.png)
+
+![image-20240126101910406](./practica_almacenamiento_docker.assets/image-20240126101910406.png)
+
+![image-20240126101950453](./practica_almacenamiento_docker.assets/image-20240126101950453.png)
+
