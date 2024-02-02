@@ -164,24 +164,38 @@ $ docker rm -f my-apache-app
 3. Utiliza el comando docker cp para copiar un fichero index.html en el directorio `/var/www/html`.
 
 ```bash
-$ 
+$ docker cp index.html miweb-container:/var/www/html/
 ```
 
+![image-20240202093155284](./practica_almacenamiento_docker.assets/image-20240202093155284.png)
 
+![image-20240202093114002](./practica_almacenamiento_docker.assets/image-20240202093114002.png)
 
 4. Accede al contenedor desde el navegador para ver la información ofrecida por el fichero `index.html`.
 
-  
+  ![image-20240202093409042](./practica_almacenamiento_docker.assets/image-20240202093409042.png)
 
 5. Borra el contenedor.
 
-   
+   ```bash
+   $ docker rm -f miweb-container
+   ```
+
+   ![image-20240202093457640](./practica_almacenamiento_docker.assets/image-20240202093457640.png)
 
 6. Crea un nuevo contenedor y monta el mismo volumen como en el ejercicio anterior.
 
+   ```bash
+   $ docker docker run -d -p 8080:80 --name miweb-container2 -v miweb:/var/www/html php:7.4-apache
+   ```
+
    
 
+![image-20240202093643429](./practica_almacenamiento_docker.assets/image-20240202093643429.png)
+
 7. Accede al contenedor desde el navegador para ver la información ofrecida por el fichero index.html . ¿Seguía existiendo ese fichero?
+
+![image-20240202093750682](./practica_almacenamiento_docker.assets/image-20240202093750682.png)
 
 
 
