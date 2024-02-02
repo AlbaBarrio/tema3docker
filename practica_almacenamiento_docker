@@ -147,15 +147,27 @@ $ docker rm -f my-apache-app
 
 1. Crea un volumen docker que se llame miweb.
 
-   
+   ```bash
+   $ docker volume create miweb
+   ```
+
+   ![image-20240202085747627](./practica_almacenamiento_docker.assets/image-20240202085747627.png)
 
 2. Crea un contenedor desde la imagen php:7.4-apache donde montes en el directorio /`var/www/html` (que sabemos que es el DocumentRoot del servidor que nos ofrece esa imagen) el volumen docker que has creado.
 
-  
+   ```bash
+   $ docker run -d -p 8080:80 --name miweb-container -v miweb:/var/www/html php:7.4-apache
+   ```
+
+  ![image-20240202090404841](./practica_almacenamiento_docker.assets/image-20240202090404841.png)
 
 3. Utiliza el comando docker cp para copiar un fichero index.html en el directorio `/var/www/html`.
 
-  
+```bash
+$ 
+```
+
+
 
 4. Accede al contenedor desde el navegador para ver la información ofrecida por el fichero `index.html`.
 
